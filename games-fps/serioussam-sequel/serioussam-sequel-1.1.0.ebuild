@@ -1,7 +1,7 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GN1U General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake
 
@@ -30,13 +30,16 @@ MY_LIB3="libParametricParticlesMP.so"
 LICENSE="GPL-2+ BSD ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 RDEPEND="games-fps/serioussam"
 DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig"
 
-BUILD_TMP=${BUILD_DIR}
+BUILD_TMP="${WORKDIR}/${P}_build"
+
+PATCHES=(
+	"${FILESDIR}"/${P}-fix_es_files.patch
+)
 
 src_configure() {
 	einfo "Setting build type Release..."
