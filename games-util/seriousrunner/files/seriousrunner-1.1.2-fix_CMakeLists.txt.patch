@@ -1,0 +1,38 @@
+--- a/CMakeLists.txt	2025-11-26 15:15:14.364062149 +0100
++++ b/CMakeLists.txt	2025-11-26 15:19:29.931794632 +0100
+@@ -15,6 +15,10 @@
+   cmake_policy(SET CMP0074 NEW) #3.12.0 `find_package()`` uses ``<PackageName>_ROOT`` variables.
+ endif()
+ 
++if(POLICY CMP0177)
++  cmake_policy(SET CMP0177 OLD) # Do not normalize install paths
++endif()
++
+ OPTION(ENABLE_LZMA "Enable the use of the system LZMA library if found" ON)
+ OPTION(ENABLE_ZLIB "Enable the use of the system ZLIB library if found" ON)
+ OPTION(ENABLE_BZip2 "Enable the use of the system BZip2 library if found" ON)
+@@ -124,11 +128,11 @@
+ 
+ # ImageMagic needed for SYSTEM INSTALL
+ if(NOT LOCAL_INSTALL)
+-    find_package(ImageMagick COMPONENTS convert)
+-    if(ImageMagick_convert_FOUND)
+-        #message(STATUS "ImageMagick convert found: ${ImageMagick_convert_EXECUTABLE}")
++    find_package(ImageMagick COMPONENTS magick)
++    if(ImageMagick_magick_FOUND)
++        #message(STATUS "ImageMagick magick found: ${ImageMagick_magick_EXECUTABLE}")
+     else()
+-        message(FATAL_ERROR "Error! LOCAL_INSTAL is set but neccessary ImageMagick convert are missing")
++        message(FATAL_ERROR "Error! LOCAL_INSTAL is set but neccessary ImageMagick magick are missing")
+     endif()
+ endif()
+ 
+@@ -457,7 +461,7 @@
+     foreach(X IN LISTS A B C D E)
+         #message(STATUS "Create icon ${X}x${X}")
+         execute_process (
+-            COMMAND bash -c "${ImageMagick_convert_EXECUTABLE} ${CMAKE_ADD_TARGET_DIR}../Icons/${INTERNAL_NAME}.png -scale ${X}x${X} ${CMAKE_ADD_TARGET_DIR}../${X}.png;"
++            COMMAND bash -c "${ImageMagick_magick_EXECUTABLE} ${CMAKE_SOURCE_DIR}/Icons/${INTERNAL_NAME}.png -scale ${X}x${X} ${CMAKE_ADD_TARGET_DIR}../${X}.png;"
+             OUTPUT_VARIABLE outVar
+        )
+        install(FILES ${CMAKE_ADD_TARGET_DIR}${X}.png
