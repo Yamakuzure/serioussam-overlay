@@ -1,7 +1,7 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake desktop
 
@@ -11,11 +11,12 @@ DESCRIPTION="Serious Runner program that loads and runs content created by users
 HOMEPAGE="https://github.com/tx00100xt/Serious-Runner"
 SRC_URI="https://github.com/tx00100xt/Serious-Runner/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}/Serious-Runner-${PV}"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 RESTRICT="bindist mirror"
-IUSE=""
 
 RDEPEND="
 	app-arch/bzip2
@@ -26,13 +27,14 @@ RDEPEND="
 	dev-qt/qtnetwork
 	dev-qt/qtsql
 	dev-qt/qtwidgets
-	sys-libs/zlib
 "
 
 DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig"
 
-S="${WORKDIR}/Serious-Runner-${PV}"
+PATCHES=(
+	"${FILESDIR}"/${P}-fix_CMakeLists.txt.patch
+)
 
 src_configure() {
 	einfo "Setting build type Release..."
