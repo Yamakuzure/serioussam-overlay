@@ -1,0 +1,129 @@
+--- a/EntitiesMP/Beast.es	2025-11-26 15:40:27.916784168 +0100
++++ a/EntitiesMP/Beast.es	2025-11-26 15:40:36.876346549 +0100
+@@ -171,13 +171,12 @@
+   void *GetEntityInfo(void) {
+     if (m_bcType == BT_E) {
+       return &eiBeastENormal;
+-    } if (m_bcType == BT_NORMAL) {
+-      return &eiBeastENormal;
+     } if (m_bcType == BT_HUGE) {
+       return &eiBeastHuge;
+     } if (m_bcType == BT_BIG) {
+       return &eiBeastBig;
+     }
++    return &eiBeastENormal;
+   };
+ 
+   void ShakeItBaby(FLOAT tmShaketime, FLOAT fPower)
+@@ -215,9 +214,7 @@
+     if (m_bcVer == BTV_FE || m_bcVer == BTV_MIX) {
+       return FALSE;
+ 	  }
+-    if (m_bcVer == BTV_SE) {
+-      return TRUE;
+-	  }
++    return TRUE;
+   }
+ 
+   /* Receive damage */
+--- a/EntitiesMP/Fishman.es	2025-11-26 15:40:27.917450418 +0100
++++ a/EntitiesMP/Fishman.es	2025-11-26 15:41:03.876470056 +0100
+@@ -185,6 +185,7 @@
+       vStretch=FLOAT3D(1,1,2)*1.0f;
+       return 0.48f;
+     }
++    return 0.f;
+   };
+ 
+   void DeathNotify(void) {
+--- a/EntitiesMP/Eyeman.es	2025-11-26 15:40:27.918063872 +0100
++++ a/EntitiesMP/Eyeman.es	2025-11-26 15:41:32.772580868 +0100
+@@ -202,9 +202,8 @@
+       return &eiEyemanPuke;
+     } if (m_EecChar==EYC_SOLDIER) {
+       return &eiEyemanSmall;
+-    } if (m_EecChar==EYC_SERGEANT) {
+-      return &eiEyemanBig;
+     }
++    return &eiEyemanBig;
+   };
+ 
+   /* Receive damage */
+--- a/EntitiesMP/Grunt.es	2025-11-26 15:40:27.918635558 +0100
++++ a/EntitiesMP/Grunt.es	2025-11-26 15:44:17.660155487 +0100
+@@ -121,9 +121,8 @@
+       return &eiGruntSoldier;
+     } else if (m_gtType==GT_COMMANDER) {
+       return &eiGruntSoldier;
+-    } else if (m_gtType==GT_SNIPER) {
+-      return &eiGruntSniper;
+     }
++    return &eiGruntSniper;
+   };
+ 
+   virtual const CTFileName &GetComputerMessageName(void) const {
+--- a/EntitiesMP/Kalopsy.es	2025-11-26 15:40:27.919279517 +0100
++++ a/EntitiesMP/Kalopsy.es	2025-11-26 15:44:06.260547753 +0100
+@@ -147,9 +147,8 @@
+       return &eiKalopsy;
+     } else if (m_KalChar == KA_PAIN) {
+       return &eiKalopsy;
+-    } else if (m_KalChar==KA_LS) {
+-      return &eiLostSoul;
+-	}
++    }
++    return &eiLostSoul;
+   };
+ 
+   // render particles
+--- a/EntitiesMP/Huanman.es	2025-11-26 15:40:27.919881277 +0100
++++ a/EntitiesMP/Huanman.es	2025-11-26 15:43:51.364455510 +0100
+@@ -127,9 +127,8 @@
+   void *GetEntityInfo(void) {
+     if (m_HuType == HUAN_SMALL) {
+       return &eiHuanSmall;
+-    } else if (m_HuType == HUAN_BIG) {
+-      return &eiHuanBig;
+     }
++    return &eiHuanBig;
+   };
+ 
+   void ShakeItBaby(FLOAT tmShaketime, FLOAT fPower)
+--- a/EntitiesMP/Mantaman.es	2025-11-26 15:40:27.920553602 +0100
++++ a/EntitiesMP/Mantaman.es	2025-11-26 15:43:28.045046783 +0100
+@@ -119,9 +119,10 @@
+     {
+       vStretch=FLOAT3D(1,1,2)*1.0f;
+       return 0.6f;
++    }
+     return -1.0f;
+   };
+-}
++
+   void DeathNotify(void) {
+     ChangeCollisionBoxIndexWhenPossible(MANTAMAN_COLLISION_BOX_DEATH);
+     en_fDensity = 500.0f;
+--- a/EntitiesMP/Primitive.es	2025-11-26 15:40:27.921152167 +0100
++++ a/EntitiesMP/Primitive.es	2025-11-26 15:42:45.019563357 +0100
+@@ -168,9 +168,7 @@
+     if (m_PrType == PR_RUN) {
+       return &eiPrSmall;
+     } 
+-	if (m_PrType == PR_BIG) {
+-      return &eiPrBig;
+-    }
++    return &eiPrBig;
+   };
+ 
+   BOOL ForcesCannonballToExplode(void)
+--- a/EntitiesMP/ScorpSoldier.es	2025-11-26 15:40:27.921807619 +0100
++++ a/EntitiesMP/ScorpSoldier.es	2025-11-26 15:42:32.163563248 +0100
+@@ -170,9 +170,8 @@
+       return &eiScorpSmall;
+     }  if (m_ssType == SS_MEDIUM) {
+       return &eiScorpMedium;
+-    } if (m_ssType == SS_BIG) {
+-      return &eiScorpBig;
+     }
++    return &eiScorpBig;
+   };
