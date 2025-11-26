@@ -1,0 +1,8 @@
+--- a/CMakeLists.txt	2025-11-26 14:43:02.123445466 +0100
++++ b/CMakeLists.txt	2025-11-26 14:43:08.826884542 +0100
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.10)
+ project(SeriousEngine)
+ 
+ # set minimal standart

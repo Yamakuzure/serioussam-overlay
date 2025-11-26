@@ -1,7 +1,7 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GN1U General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake
 
@@ -41,13 +41,16 @@ MY_LIB4="libGameMP.so"
 LICENSE="GPL-2 BSD ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 RDEPEND="games-fps/serioussam"
 DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig"
 
-BUILD_TMP=${BUILD_DIR}
+PATCHES=(
+	"${FILESDIR}"/${P}-fix_cmake_version.patch
+)
+
+BUILD_TMP="${WORKDIR}/SE1-ParseError-${PV}/Build"
 
 src_configure() {
 	einfo "Setting build type Release..."
@@ -115,10 +118,10 @@ src_install() {
 		|| die "Failed to create mod dir"
 
 	# unpack mod content
-	cat "${DISTDIR}/${MY_MOD1_ARC}".part* > "${MY_MOD1_ARC}" \
-		|| die "Failed to cp[y archive"
-	cat "${DISTDIR}/${MY_MOD2_ARC}" > "${MY_MOD2_ARC}" \
-		|| die "Failed to cp[y archive"
+	cat "${DISTDIR}"/${MY_MOD1_ARC}.parta{a,b,c,d,e} > "${MY_MOD1_ARC}" \
+		|| die "Failed to copy '${MY_MOD1_ARC}' from '${DISTDIR}'"
+	cat "${DISTDIR}"/${MY_MOD2_ARC} > "${MY_MOD2_ARC}" \
+		|| die "Failed to copy '${MY_MOD2_ARC}' from '${DISTDIR}'"
 	cd "${D}${dir1}" || die "Failed to change dir"
 	unpack "${S}/${MY_MOD1_ARC}" || die "Failed to unpack mod content"
 	cd "${D}${dir2}" || die "Failed to change dir"
